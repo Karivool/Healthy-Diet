@@ -1,0 +1,46 @@
+body {
+  min-width: 500px;
+  background: ffff11;
+}
+
+.title {
+  line-height: 25px;
+}
+
+.title-text {
+  font-size: 23px;
+  font-weight: bolder;
+  float: right;
+  padding-top: 13px;
+  padding-right: 5px;
+}
+
+.manual-selection {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  text-align: center;
+}
+
+.server-choice {
+  padding-right: 15px;
+  padding-bottom: 15px;
+  width: 70px;
+}
+
+.sc-text {
+  text-align: center;
+}
+
+.selection-divider {
+  font-size: 16px;
+  font-weight: bold;
+  border-bottom: 2px;
+}
+
+.color-bg-1 {
+  background: #e1e1e1;
+}
+
+.color-bg-2 {
+  background: #c3c3c3;
+}
