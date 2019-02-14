@@ -4,10 +4,13 @@
   "description": "Makes server switching easier",
   "permissions": ["tabs", "activeTab", "declarativeContent", "storage"],
   "background": {
-    "scripts": ["background.js", "popup.js"],
+    "scripts": [
+      "background.js", "popup.js", "00getMain.js", "01getFruit.js",
+      "02getVeggie.js", "03getReserved.js"
+    ],
     "persistent": false
   },
-  "web_accessible_resources": ["constants.js"],
+  "web_accessible_resources": [],
   "page_action": {
     "default_popup": "popup.html",
     "default_icon": {
