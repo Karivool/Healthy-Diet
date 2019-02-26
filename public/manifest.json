@@ -1,0 +1,18 @@
+{
+  "name": "1stdibs Healthy Diet",
+  "version": "1.0",
+  "description": "Makes server switching easier",
+  "permissions": ["tabs", "activeTab", "declarativeContent", "storage"],
+  "browser_action": {
+    "default_popup": "index.html",
+    "default_title": "1stdibs Healthy Diet"
+  },
+  "icons": {
+    "16": "images/hd16.png",
+    "32": "images/hd32.png",
+    "48": "images/hd48.png",
+    "128": "images/hd128.png"
+  },
+  "content_security_policy": "script-src 'self' 'sha256-5As4+3YpY62+l38PsxCEkjB1R4YtyktBtRScTJ3fyLU='; object-src 'self'",  
+  "manifest_version": 2
+}

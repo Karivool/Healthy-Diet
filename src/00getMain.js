@@ -3,15 +3,7 @@ let names = ['PROD', 'QA', 'Stage', 'Mario', 'Luigi', 'Bowser'];
 let pics = ['prod', 'qa', 'stage', 'mario', 'luigi', 'bowser'];
 
 function choices(servers, names, pics) {
-    chrome.runtime.sendMessage({getDibsPage: 0}, function(response){
-      let serverString = "";
-      let dibsURL = new URL (response.url);
-
-      let protocol = dibsURL.protocol + "//";
-      let pathname = dibsURL.pathname;
-
-      console.log(dibsURL);
-    });
+  console.log(currentURL);
 };
 
 // for (var choice = 0; choice < servers.length; choice++) {
