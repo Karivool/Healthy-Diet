@@ -10,6 +10,15 @@ chrome.runtime.onInstalled.addListener(function() {
   });
 });
 
+let currentURL = function(tab){
+  let newUrlLand = new URL (tab.url);
+  console.log(newUrlLand);
+  return newUrlLand;
+};
+console.log("currentURL is:");
+console.log(currentURL());
+
+
 chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs){
     currentURL(tabs[0]);
 });

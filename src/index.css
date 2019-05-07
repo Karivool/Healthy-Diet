@@ -29,6 +29,7 @@ body {
 .server-choice {
   padding-right: 15px;
   padding-bottom: 15px;
+  font-weight: 500;
   width: 70px;
 }
 
@@ -39,7 +40,9 @@ body {
 .selection-divider {
   font-size: 16px;
   font-weight: bold;
-  border-bottom: 2px;
+  padding-top: 5px;
+  padding-left: 5px;
+  margin-bottom: 0px;
 }
 
 .color-bg-1 {
