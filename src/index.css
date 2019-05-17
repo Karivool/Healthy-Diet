@@ -52,3 +52,11 @@ body {
 .color-bg-2 {
   background: #c3c3c3;
 }
+
+.current-url {
+  text-align: center;
+  font-weight: bold;
+  background-color: #cfa3e0;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}

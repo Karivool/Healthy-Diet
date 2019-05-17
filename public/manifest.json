@@ -11,7 +11,7 @@
     "default_title": "1stdibs Healthy Diet"
   },
   "background": {
-    "scripts": ["app/background.js"]
+    "scripts": []
   },
   "icons": {
     "16": "images/hd16.png",

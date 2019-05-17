@@ -1,11 +1,10 @@
 /*global chrome*/
-export function getCurrentTab(callback) {
-    chrome.tabs.query({
-        active: true,
-        currentWindow: true
-    },
-    (tabs) => {
-        console.log(tabs[0].url);
-        return callback(tabs[0]);
-    });
+export function getUrl(tabUrl) {chrome.tabs.query(
+  {
+    currentWindow: true,
+    active: true
+  },
+  function(tabs){
+    tabUrl(tabs[0].url);
+  });
 }
