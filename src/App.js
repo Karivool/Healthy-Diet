@@ -36,14 +36,14 @@ class App extends Component {
     if (currentUrl !== "") {
       urlParts = new URL(currentUrl);
     }
-    // protocol + "//" + host + pathname + search
+
     return (
       <div className="App">
         <div class="title">
           <img src="images/title.png" alt=""/><div class="title-text">Healthy Diet - Server Switcher</div>
         </div>
         <div class="current-url">{currentUrl}</div>
-        <Main url={urlParts}/>
+        <Main urlParts={urlParts}/>
       </div>
     );
   }
