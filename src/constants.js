@@ -1,5 +1,5 @@
 module.exports = {
-'mainServers': ['', 'qa', 'stage', 'mario', 'luigi', 'bowser'],
+'mainServers': ['www', 'qa', 'stage', 'mario', 'luigi', 'bowser'],
 'mainNames': ['PROD', 'QA', 'Stage', 'Mario', 'Luigi', 'Bowser'],
 'mainPics': ['prod', 'qa', 'stage', 'mario', 'luigi', 'bowser'],
 
