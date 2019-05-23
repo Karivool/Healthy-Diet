@@ -37,7 +37,6 @@ class ServerList extends Component {
           // e.g. adminv2.guava.intranet.1stdibs.com
           if (hostParts[2] === "intranet") {
             let checkProd = (serverName === "www") ? "" : `${serverName}.` ;
-            console.log(checkProd);
             newHost = `adminv2.${checkProd}1stdibs.com`;
           } else {
             newHost = urlParts.host;
