@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class ServerList extends Component {
 
-  makeLink(urlParts, serverName) {
+  makeLink(urlParts, serverName, realName) {
     if (urlParts === undefined) {
       return "https://www.1stdibs.com/";
     } else {
@@ -14,7 +14,11 @@ class ServerList extends Component {
           // case 3 e.g.
           // www.1stdibs.com || qa.1stdibs.com
           if (hostParts[0] === "adminv2") {
-            newHost = `adminv2.${serverName}.1stdibs.com`;
+            if (realName === "PROD") {
+                newHost = `adminv2.1stdibs.com`;
+            } else {
+              newHost = `adminv2.${serverName}.1stdibs.com`
+            }
           } else if (hostParts[1] === "1stdibs") {
             newHost = `${serverName}.1stdibs.com`;
           } else {
@@ -25,7 +29,11 @@ class ServerList extends Component {
           // case 4 e.g.
           // guava.intranet.1stdibs.com || adminv2.stage.1stdibs.com
           if (hostParts[0] === "adminv2") {
-            newHost = `adminv2.${serverName}.1stdibs.com`;
+            if (realName === "PROD") {
+                newHost = `adminv2.1stdibs.com`;
+            } else {
+              newHost = `adminv2.${serverName}.1stdibs.com`
+            }
           } else if (hostParts[1] === "intranet") {
             newHost = `${serverName}.1stdibs.com`;
           } else {
@@ -63,7 +71,7 @@ class ServerList extends Component {
               <div class="server-choice" key={idx} idx={idx}>
                 {
                   <a
-                    href={linkMaker(urlParts, servers[idx])}
+                    href={linkMaker(urlParts, servers[idx], names[idx])}
                     target="_blank"
                     rel="noopener noreferrer">
                     <img
