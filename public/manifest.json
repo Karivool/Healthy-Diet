@@ -12,7 +12,7 @@
     "*://*.1stdibs.com/*"
   ],
   "action": {
-    "default_popup": "index.html",
+    "default_popup": "app/popup.html",
     "default_title": "1stdibs Healthy Diet"
   },
   "icons": {
