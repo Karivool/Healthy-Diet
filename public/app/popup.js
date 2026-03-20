@@ -213,6 +213,74 @@ function makeLink(urlParts, serverName, realName) {
   return `${urlParts.protocol}//${newHost}${urlParts.pathname}${urlParts.search}`;
 }
 
+function makeNumberedServerLink(urlParts, prefix, numberValue) {
+  const normalizedNumber = String(numberValue || "").trim();
+  if (!/^\d+$/.test(normalizedNumber)) {
+    return null;
+  }
+
+  const host = `${prefix}${normalizedNumber}.${prefix}.1stdibs.com`;
+  if (!urlParts) {
+    return `https://${host}/`;
+  }
+
+  return `https://${host}${urlParts.pathname}${urlParts.search}`;
+}
+
+function renderNumberedServerInput(label, prefix, urlParts) {
+  const wrapper = document.createElement("form");
+  wrapper.className = "custom-switcher";
+
+  const title = document.createElement("label");
+  title.className = "custom-switcher-label";
+  title.textContent = label;
+
+  const controls = document.createElement("div");
+  controls.className = "custom-switcher-controls";
+
+  const input = document.createElement("input");
+  input.type = "number";
+  input.min = "1";
+  input.step = "1";
+  input.placeholder = "Number";
+  input.setAttribute("aria-label", `${label} number`);
+
+  const submit = document.createElement("button");
+  submit.type = "submit";
+  submit.textContent = "Open";
+
+  const error = document.createElement("div");
+  error.className = "custom-switcher-error";
+
+  controls.appendChild(input);
+  controls.appendChild(submit);
+  wrapper.appendChild(title);
+  wrapper.appendChild(controls);
+  wrapper.appendChild(error);
+
+  wrapper.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const targetUrl = makeNumberedServerLink(urlParts, prefix, input.value);
+    if (!targetUrl) {
+      error.textContent = "Enter a valid number.";
+      return;
+    }
+
+    error.textContent = "";
+    chrome.tabs.create({ url: targetUrl });
+  });
+
+  return wrapper;
+}
+
+function renderCustomServerInputs(urlParts) {
+  const container = document.createElement("div");
+  container.className = "custom-switchers";
+  container.appendChild(renderNumberedServerInput("FS", "fs", urlParts));
+  container.appendChild(renderNumberedServerInput("TS", "ts", urlParts));
+  return container;
+}
+
 function renderSection(title, bgClass, servers, names, pics, urlParts) {
   const section = document.createElement("div");
   section.className = bgClass;
@@ -265,16 +333,16 @@ function render(urlString) {
     urlParts = undefined;
   }
 
-  sectionsEl.appendChild(
-    renderSection(
-      "Main",
-      "color-bg-1",
-      DATA.mainServers,
-      DATA.mainNames,
-      DATA.mainPics,
-      urlParts
-    )
+  const mainSection = renderSection(
+    "Main",
+    "color-bg-1",
+    DATA.mainServers,
+    DATA.mainNames,
+    DATA.mainPics,
+    urlParts
   );
+  mainSection.appendChild(renderCustomServerInputs(urlParts));
+  sectionsEl.appendChild(mainSection);
   sectionsEl.appendChild(
     renderSection(
       "Fruit",
