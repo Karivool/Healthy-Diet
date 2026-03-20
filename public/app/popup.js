@@ -4,6 +4,46 @@ const DATA = {
   mainPics: ["prod", "qa", "stage", "mario", "luigi"],
 };
 
+const INPUT_STORAGE_KEYS = {
+  fs: "fsServerNumber",
+  ts: "tsServerNumber",
+};
+
+function getStorageKey(prefix) {
+  return INPUT_STORAGE_KEYS[prefix];
+}
+
+function loadStoredNumber(prefix, inputEl) {
+  const key = getStorageKey(prefix);
+  if (!key) {
+    return;
+  }
+
+  chrome.storage.local.get([key], (stored) => {
+    const value = stored && stored[key];
+    if (typeof value === "string" && /^\d+$/.test(value)) {
+      inputEl.value = value;
+    }
+  });
+}
+
+function persistStoredNumber(prefix, rawValue) {
+  const key = getStorageKey(prefix);
+  if (!key) {
+    return;
+  }
+
+  const value = String(rawValue || "").trim();
+  if (value === "") {
+    chrome.storage.local.remove(key);
+    return;
+  }
+
+  if (/^\d+$/.test(value)) {
+    chrome.storage.local.set({ [key]: value });
+  }
+}
+
 function makeLink(urlParts, serverName, realName) {
   if (!urlParts) {
     return "https://www.1stdibs.com/";
@@ -91,6 +131,7 @@ function renderNumberedServerInput(label, prefix, urlParts) {
   input.step = "1";
   input.placeholder = "Number";
   input.setAttribute("aria-label", `${label} number`);
+  loadStoredNumber(prefix, input);
 
   const submit = document.createElement("button");
   submit.type = "submit";
@@ -105,6 +146,10 @@ function renderNumberedServerInput(label, prefix, urlParts) {
   wrapper.appendChild(controls);
   wrapper.appendChild(error);
 
+  input.addEventListener("input", () => {
+    persistStoredNumber(prefix, input.value);
+  });
+
   wrapper.addEventListener("submit", (event) => {
     event.preventDefault();
     const targetUrl = makeNumberedServerLink(urlParts, prefix, input.value);
@@ -114,6 +159,7 @@ function renderNumberedServerInput(label, prefix, urlParts) {
     }
 
     error.textContent = "";
+    persistStoredNumber(prefix, input.value);
     chrome.tabs.create({ url: targetUrl });
   });
 
