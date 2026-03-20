@@ -1,5 +1,5 @@
 body {
-  min-width: 500px;
+  min-width: 320px;
   margin: 0;
   font-family: Arial, sans-serif;
 }
@@ -10,7 +10,7 @@ body {
 }
 
 .title-text {
-  font-size: 23px;
+  font-size: 20px;
   font-weight: bolder;
   float: right;
   padding-top: 13px;
@@ -18,17 +18,18 @@ body {
 }
 
 .manual-selection {
-  display: grid;
-  grid-template-columns: repeat(9, 1fr);
+  display: flex;
   text-align: center;
-  padding: 0 8px 8px;
+  padding: 0 0px 0px;
+  justify-content: center;
 }
 
 .server-choice {
-  padding-right: 15px;
+  padding-right: 5px;
+  padding-left: 5px;
   padding-bottom: 15px;
-  font-weight: 500;
-  width: 70px;
+  font-weight: 600;
+  width: 48px;
 }
 
 .server-choice img {
@@ -63,8 +64,7 @@ body {
   background-color: #cfa3e0;
   padding: 3px 8px;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  max-width: 380px;
 }
 
 .custom-switcher {

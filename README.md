@@ -1,5 +1,5 @@
 # 1stdibs Healthy Diet - Server Switcher
-### Beta Version 0.8
+### Version 1.2
 [Link to Extension in Chrome Store](http://localhost:3000)
 
 1stdibs Healthy Diet is a server switcher made for switching between different servers to improve testing flow.
@@ -11,5 +11,5 @@
 - [ ] Hide select sections
 - [ ] Switch between international servers
 - [ ] Compact mode
-- [ ] Remember settings
+- [x] Remember settings
 - [ ] Dark mode

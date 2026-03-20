@@ -154,7 +154,7 @@ function renderNumberedServerInput(label, prefix, urlParts) {
     event.preventDefault();
     const targetUrl = makeNumberedServerLink(urlParts, prefix, input.value);
     if (!targetUrl) {
-      error.textContent = "Enter a valid number.";
+      error.textContent = "Huh?! This isn't a Wendy's!";
       return;
     }
 
@@ -177,7 +177,7 @@ function renderCustomServerSection(title, prefix, bgClass, urlParts) {
 
   const body = document.createElement("div");
   body.className = "custom-switcher-section";
-  body.appendChild(renderNumberedServerInput(title, prefix, urlParts));
+  body.appendChild(renderNumberedServerInput("Server #", prefix, urlParts));
   section.appendChild(body);
 
   return section;
@@ -245,10 +245,10 @@ function render(urlString) {
   );
   sectionsEl.appendChild(mainSection);
   sectionsEl.appendChild(
-    renderCustomServerSection("FS", "fs", "color-bg-2", urlParts)
+    renderCustomServerSection("FS (Fruit server)", "fs", "color-bg-2", urlParts)
   );
   sectionsEl.appendChild(
-    renderCustomServerSection("TS", "ts", "color-bg-1", urlParts)
+    renderCustomServerSection("TS (Trimmed server)", "ts", "color-bg-1", urlParts)
   );
 }
 

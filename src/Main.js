@@ -20,11 +20,11 @@ class Main extends Component {
           <ServerList urlParts={urlParts} servers={mainServers} names={mainNames} pics={mainPics}/>
         </div>
         <div class="color-bg-2">
-          <div class="selection-divider">FS</div>
+          <div class="selection-divider">Fruit Server</div>
           <ServerList urlParts={urlParts} servers={} names={} pics={}/>
         </div>
         <div class="color-bg-1">
-          <div class="selection-divider">TS</div>
+          <div class="selection-divider">Trimmed Server</div>
           <ServerList urlParts={urlParts} servers={} names={} pics={}/>
         </div>
       </div>
