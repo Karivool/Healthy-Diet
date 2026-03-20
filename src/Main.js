@@ -10,15 +10,6 @@ class Main extends Component {
     let mainServers = SERVERCONST['mainServers'];
     let mainNames = SERVERCONST['mainNames'];
     let mainPics = SERVERCONST['mainPics'];
-    let fruitServers = SERVERCONST['fruitServers'];
-    let fruitNames = SERVERCONST['fruitNames'];
-    let fruitPics = SERVERCONST['fruitPics'];
-    let veggieServers = SERVERCONST['veggieServers'];
-    let veggieNames = SERVERCONST['veggieNames'];
-    let veggiePics = SERVERCONST['veggiePics'];
-    let reservedServers = SERVERCONST['reservedServers'];
-    let reservedNames = SERVERCONST['reservedNames'];
-    let reservedPics = SERVERCONST['reservedPics'];
 
     let urlParts = this.props.urlParts;
 
@@ -29,16 +20,12 @@ class Main extends Component {
           <ServerList urlParts={urlParts} servers={mainServers} names={mainNames} pics={mainPics}/>
         </div>
         <div class="color-bg-2">
-          <div class="selection-divider">Fruit</div>
-          <ServerList urlParts={urlParts} servers={fruitServers} names={fruitNames} pics={fruitPics}/>
+          <div class="selection-divider">FS</div>
+          <ServerList urlParts={urlParts} servers={} names={} pics={}/>
         </div>
         <div class="color-bg-1">
-          <div class="selection-divider">Veggie</div>
-          <ServerList urlParts={urlParts} servers={veggieServers} names={veggieNames} pics={veggiePics}/>
-        </div>
-        <div class="color-bg-2">
-          <div class="selection-divider">Reserved</div>
-          <ServerList urlParts={urlParts} servers={reservedServers} names={reservedNames} pics={reservedPics}/>
+          <div class="selection-divider">TS</div>
+          <ServerList urlParts={urlParts} servers={} names={} pics={}/>
         </div>
       </div>
     )
