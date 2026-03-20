@@ -60,12 +60,18 @@ function makeNumberedServerLink(urlParts, prefix, numberValue) {
     return null;
   }
 
-  const host = `${prefix}${normalizedNumber}.${prefix}.1stdibs.com`;
+  const isAdminV2Context =
+    !!urlParts && /^adminv2(?:[.-]|$)/.test(urlParts.hostname);
+  const numberedPrefix = `${prefix}${normalizedNumber}`;
+  const hostPrefix = isAdminV2Context
+    ? `adminv2-${numberedPrefix}`
+    : numberedPrefix;
+  const host = `${hostPrefix}.${prefix}.1stdibs.com`;
   if (!urlParts) {
     return `https://${host}/`;
   }
 
-  return `https://${host}${urlParts.pathname}${urlParts.search}`;
+  return `${urlParts.protocol}//${host}${urlParts.pathname}${urlParts.search}`;
 }
 
 function renderNumberedServerInput(label, prefix, urlParts) {
@@ -114,12 +120,21 @@ function renderNumberedServerInput(label, prefix, urlParts) {
   return wrapper;
 }
 
-function renderCustomServerInputs(urlParts) {
-  const container = document.createElement("div");
-  container.className = "custom-switchers";
-  container.appendChild(renderNumberedServerInput("FS", "fs", urlParts));
-  container.appendChild(renderNumberedServerInput("TS", "ts", urlParts));
-  return container;
+function renderCustomServerSection(title, prefix, bgClass, urlParts) {
+  const section = document.createElement("div");
+  section.className = bgClass;
+
+  const heading = document.createElement("div");
+  heading.className = "selection-divider";
+  heading.textContent = title;
+  section.appendChild(heading);
+
+  const body = document.createElement("div");
+  body.className = "custom-switcher-section";
+  body.appendChild(renderNumberedServerInput(title, prefix, urlParts));
+  section.appendChild(body);
+
+  return section;
 }
 
 function renderSection(title, bgClass, servers, names, pics, urlParts) {
@@ -182,8 +197,13 @@ function render(urlString) {
     DATA.mainPics,
     urlParts
   );
-  mainSection.appendChild(renderCustomServerInputs(urlParts));
   sectionsEl.appendChild(mainSection);
+  sectionsEl.appendChild(
+    renderCustomServerSection("FS", "fs", "color-bg-2", urlParts)
+  );
+  sectionsEl.appendChild(
+    renderCustomServerSection("TS", "ts", "color-bg-1", urlParts)
+  );
 }
 
 chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
