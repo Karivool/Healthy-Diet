@@ -8,12 +8,14 @@ class ServerList extends Component {
     } else {
       let newHost = "";
       let hostParts = urlParts.host.split(".");
+      const isAdminV2Host =
+        hostParts[0] === "adminv2" || hostParts[0].startsWith("adminv2-");
 
       switch (hostParts.length) {
         case 3:
           // case 3 e.g.
           // www.1stdibs.com || qa.1stdibs.com
-          if (hostParts[0] === "adminv2") {
+          if (isAdminV2Host) {
             if (realName === "PROD") {
                 newHost = `adminv2.1stdibs.com`;
             } else {
@@ -28,7 +30,7 @@ class ServerList extends Component {
         case 4:
           // case 4 e.g.
           // guava.intranet.1stdibs.com || adminv2.stage.1stdibs.com
-          if (hostParts[0] === "adminv2") {
+          if (isAdminV2Host) {
             if (realName === "PROD") {
                 newHost = `adminv2.1stdibs.com`;
             } else {
