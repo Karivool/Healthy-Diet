@@ -49,33 +49,30 @@ function makeLink(urlParts, serverName, realName) {
     return "https://www.1stdibs.com/";
   }
 
-  let newHost = "";
   const hostParts = urlParts.host.split(".");
-  const isAdminV2Host =
-    hostParts[0] === "adminv2" || hostParts[0].startsWith("adminv2-");
+  const isAdminV2Host = /^adminv2(?:[.-]|$)/.test(hostParts[0]);
+
+  // Normalize all adminv2 entry hosts (adminv2.*, adminv2-*) to dot format.
+  if (isAdminV2Host) {
+    const normalizedHost =
+      realName === "PROD"
+        ? "adminv2.1stdibs.com"
+        : `adminv2.${serverName}.1stdibs.com`;
+    return `${urlParts.protocol}//${normalizedHost}${urlParts.pathname}${urlParts.search}`;
+  }
+
+  let newHost = "";
 
   switch (hostParts.length) {
     case 3:
-      if (isAdminV2Host) {
-        if (realName === "PROD") {
-          newHost = "adminv2.1stdibs.com";
-        } else {
-          newHost = `adminv2.${serverName}.1stdibs.com`;
-        }
-      } else if (hostParts[1] === "1stdibs") {
+      if (hostParts[1] === "1stdibs") {
         newHost = `${serverName}.1stdibs.com`;
       } else {
         newHost = urlParts.host;
       }
       break;
     case 4:
-      if (isAdminV2Host) {
-        if (realName === "PROD") {
-          newHost = "adminv2.1stdibs.com";
-        } else {
-          newHost = `adminv2.${serverName}.1stdibs.com`;
-        }
-      } else if (hostParts[1] === "intranet") {
+      if (hostParts[1] === "intranet") {
         newHost = `${serverName}.1stdibs.com`;
       } else {
         newHost = urlParts.host;
