@@ -44,36 +44,45 @@ function persistStoredNumber(prefix, rawValue) {
   }
 }
 
+function is1stdibsDomain(hostname) {
+  return hostname === "1stdibs.com" || hostname.endsWith(".1stdibs.com");
+}
+
 function makeLink(urlParts, serverName, realName) {
   if (!urlParts) {
     return "https://www.1stdibs.com/";
   }
 
-  let newHost = "";
+  if (!is1stdibsDomain(urlParts.hostname)) {
+    const fallbackHost =
+      realName === "PROD" ? "www.1stdibs.com" : `${serverName}.1stdibs.com`;
+    return `https://${fallbackHost}/`;
+  }
+
   const hostParts = urlParts.host.split(".");
+  const isAdminV2Host = /^adminv2(?:[.-]|$)/.test(hostParts[0]);
+
+  // Normalize all adminv2 entry hosts (adminv2.*, adminv2-*) to dot format.
+  if (isAdminV2Host) {
+    const normalizedHost =
+      realName === "PROD"
+        ? "adminv2.1stdibs.com"
+        : `adminv2.${serverName}.1stdibs.com`;
+    return `${urlParts.protocol}//${normalizedHost}${urlParts.pathname}${urlParts.search}`;
+  }
+
+  let newHost = "";
 
   switch (hostParts.length) {
     case 3:
-      if (hostParts[0] === "adminv2") {
-        if (realName === "PROD") {
-          newHost = "adminv2.1stdibs.com";
-        } else {
-          newHost = `adminv2.${serverName}.1stdibs.com`;
-        }
-      } else if (hostParts[1] === "1stdibs") {
+      if (hostParts[1] === "1stdibs") {
         newHost = `${serverName}.1stdibs.com`;
       } else {
         newHost = urlParts.host;
       }
       break;
     case 4:
-      if (hostParts[0] === "adminv2") {
-        if (realName === "PROD") {
-          newHost = "adminv2.1stdibs.com";
-        } else {
-          newHost = `adminv2.${serverName}.1stdibs.com`;
-        }
-      } else if (hostParts[1] === "intranet") {
+      if (hostParts[1] === "intranet") {
         newHost = `${serverName}.1stdibs.com`;
       } else {
         newHost = urlParts.host;
@@ -108,6 +117,10 @@ function makeNumberedServerLink(urlParts, prefix, numberValue) {
     : numberedPrefix;
   const host = `${hostPrefix}.${prefix}.1stdibs.com`;
   if (!urlParts) {
+    return `https://${host}/`;
+  }
+
+  if (!is1stdibsDomain(urlParts.hostname)) {
     return `https://${host}/`;
   }
 
