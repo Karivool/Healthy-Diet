@@ -51,10 +51,12 @@ function makeLink(urlParts, serverName, realName) {
 
   let newHost = "";
   const hostParts = urlParts.host.split(".");
+  const isAdminV2Host =
+    hostParts[0] === "adminv2" || hostParts[0].startsWith("adminv2-");
 
   switch (hostParts.length) {
     case 3:
-      if (hostParts[0] === "adminv2") {
+      if (isAdminV2Host) {
         if (realName === "PROD") {
           newHost = "adminv2.1stdibs.com";
         } else {
@@ -67,7 +69,7 @@ function makeLink(urlParts, serverName, realName) {
       }
       break;
     case 4:
-      if (hostParts[0] === "adminv2") {
+      if (isAdminV2Host) {
         if (realName === "PROD") {
           newHost = "adminv2.1stdibs.com";
         } else {
