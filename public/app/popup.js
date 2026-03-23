@@ -44,9 +44,19 @@ function persistStoredNumber(prefix, rawValue) {
   }
 }
 
+function is1stdibsDomain(hostname) {
+  return hostname === "1stdibs.com" || hostname.endsWith(".1stdibs.com");
+}
+
 function makeLink(urlParts, serverName, realName) {
   if (!urlParts) {
     return "https://www.1stdibs.com/";
+  }
+
+  if (!is1stdibsDomain(urlParts.hostname)) {
+    const fallbackHost =
+      realName === "PROD" ? "www.1stdibs.com" : `${serverName}.1stdibs.com`;
+    return `https://${fallbackHost}/`;
   }
 
   const hostParts = urlParts.host.split(".");
@@ -107,6 +117,10 @@ function makeNumberedServerLink(urlParts, prefix, numberValue) {
     : numberedPrefix;
   const host = `${hostPrefix}.${prefix}.1stdibs.com`;
   if (!urlParts) {
+    return `https://${host}/`;
+  }
+
+  if (!is1stdibsDomain(urlParts.hostname)) {
     return `https://${host}/`;
   }
 
